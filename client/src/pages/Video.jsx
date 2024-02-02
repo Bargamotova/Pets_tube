@@ -143,9 +143,7 @@ const Video = () => {
   React.useEffect(() => {
     try {
       const fetchVideoData = async () => {
-        const videoRes = await axios.get(
-          `https://pets-tube-front.vercel.app/api/v1/videos/find/${pathUrl}`
-        );
+        const videoRes = await axios.get(`/videos/find/${pathUrl}`);
         dispatch(fetchSuccess(videoRes.data));
       };
       if (pathUrl) {

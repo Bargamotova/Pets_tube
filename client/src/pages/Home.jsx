@@ -16,12 +16,8 @@ const Home = ({ type, choice }) => {
   React.useEffect(() => {
     const fetchVideos = async () => {
       const { data } = type
-        ? await axios.get(
-            `https://pets-tube-front.vercel.app/api/v1/videos/${type}`
-          )
-        : await axios.get(
-            `https://pets-tube-front.vercel.app/api/v1/videos/tags?tags=${choice}`
-          );
+        ? await axios.get(`/videos/${type}`)
+        : await axios.get(`/videos/tags?tags=${choice}`);
       setVideos(data);
     };
     fetchVideos();
