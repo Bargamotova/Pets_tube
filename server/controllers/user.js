@@ -1,4 +1,4 @@
-import { createError } from "../error.js";
+import { createError } from "../utils/error.js";
 import User from '../models/User.js';
 import Video from "../models/Video.js";
 // import * as fs from 'fs-extra';
