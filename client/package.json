@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost:8800/api/v1/",
+  "proxy": "pets-tube-back.vercel.app/api/v1/",
   "name": "client",
   "version": "0.1.0",
   "private": true,
