@@ -17,10 +17,10 @@ const Home = ({ type, choice }) => {
     const fetchVideos = async () => {
       const { data } = type
         ? await axios.get(
-            `https://pets-tube-front.vercel.app/api/v1/videos/videos/${type}`
+            `https://pets-tube-front.vercel.app/api/v1/videos/${type}`
           )
         : await axios.get(
-            `https://pets-tube-front.vercel.app/api/v1/videos/videos/tags?tags=${choice}`
+            `https://pets-tube-front.vercel.app/api/v1/videos/tags?tags=${choice}`
           );
       setVideos(data);
     };
