@@ -16,8 +16,12 @@ const Home = ({ type, choice }) => {
   React.useEffect(() => {
     const fetchVideos = async () => {
       const { data } = type
-        ? await axios.get(`/videos/${type}`)
-        : await axios.get(`/videos/tags?tags=${choice}`);
+        ? await axios.get(
+            `https://pets-tube-front.vercel.app/api/v1/videos/videos/${type}`
+          )
+        : await axios.get(
+            `https://pets-tube-front.vercel.app/api/v1/videos/videos/tags?tags=${choice}`
+          );
       setVideos(data);
     };
     fetchVideos();
@@ -26,7 +30,7 @@ const Home = ({ type, choice }) => {
   return (
     <Container>
       {videos?.map((video) => (
-        <Card type="mid" key={video._id} video={video} />
+        <Card type='mid' key={video._id} video={video} />
       ))}
     </Container>
   );
