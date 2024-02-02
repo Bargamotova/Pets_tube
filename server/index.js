@@ -9,7 +9,6 @@ import authRoute from './routes/auth.js';
 import cookieParser from 'cookie-parser';
 
 import cors from 'cors';
-import { getRandomVideos } from './controllers/video.js';
 
 const app = express();
 const opt = {
@@ -57,7 +56,7 @@ app.use('/api/v1/users', userRoute);
 app.use('/api/v1/videos', videoRoute);
 app.use('/api/v1/comments', commentRoute);
 app.get('/api/v1/', (req, res) => res.json({ message: 'Okay' }))
-app.get('/api/v1/videos/random', getRandomVideos);
+
 
 app.use((err, req, res, __) => {
   const status = err.status || 500;
