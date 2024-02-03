@@ -16,7 +16,7 @@ const Search = () => {
   React.useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get(`/videos/search${query}`);
+        const res = await axios.get(`/api/v1/videos/search${query}`);
         console.log(res.data);
         setVideos(res.data);
       } catch (err) {}
@@ -26,7 +26,7 @@ const Search = () => {
   return (
     <Container>
       {videos.map((video) => (
-        <Card type="mid" key={video._id} video={video} />
+        <Card type='mid' key={video._id} video={video} />
       ))}
     </Container>
   );

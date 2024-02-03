@@ -84,7 +84,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post("/auth/signIn", { name, password });
+      const res = await axios.post("/api/v1/auth/signIn", { name, password });
       dispatch(loginSuccess(res.data));
       navigate("/");
     } catch (error) {
@@ -96,7 +96,7 @@ const SignIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         axios
-          .post("/auth/google", {
+          .post("/api/v1/auth/google", {
             name: result.user.displayName,
             email: result.user.email,
             img: result.user.photoURL,
@@ -128,12 +128,12 @@ const SignIn = () => {
         <Title>Sign In</Title>
         <SubTitle>to continue to BargoTube</SubTitle>
         <Input
-          placeholder="username"
+          placeholder='username'
           onChange={(e) => setName(e.target.value)}
         />
         <Input
-          type="password"
-          placeholder="password"
+          type='password'
+          placeholder='password'
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button onClick={handleLogin}>Sign in</Button>
@@ -142,18 +142,18 @@ const SignIn = () => {
         <Button onClick={signInWithGoogle}> Sign In with Google</Button>
         <SubTitle>or</SubTitle>
         <Input
-          type="text"
-          placeholder="user name"
+          type='text'
+          placeholder='user name'
           onChange={(e) => setName(e.target.value)}
         />
         <Input
-          type="email"
-          placeholder="email"
+          type='email'
+          placeholder='email'
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
-          type="password"
-          placeholder="password"
+          type='password'
+          placeholder='password'
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button onClick={handleRegister}>Sign up</Button>

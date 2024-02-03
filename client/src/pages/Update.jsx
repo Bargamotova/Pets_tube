@@ -137,7 +137,7 @@ const Update = () => {
       updatedUser.img = filename;
       console.log("FILE :", file);
       try {
-        const dataI = await axios.post("/users/change-avatar", formData);
+        const dataI = await axios.post("/api/v1/users/change-avatar", formData);
         console.log("About image data :", dataI.data.img);
         updatedUser.img = dataI.data.img;
       } catch (error) {
@@ -146,7 +146,7 @@ const Update = () => {
     }
     try {
       const { data } = await axios.put(
-        `/users/${currentUser._id}`,
+        `/api/v1/users/${currentUser._id}`,
         updatedUser
       );
       setSuccess(true);

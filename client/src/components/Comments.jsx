@@ -64,7 +64,7 @@ const Comments = () => {
   React.useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`/comments/${path}`);
+        const res = await axios.get(`/api/v1/comments/${path}`);
         dispatch(commentSuccess(res.data));
       } catch (err) {}
     };
@@ -77,7 +77,7 @@ const Comments = () => {
   const handleComment = async (e) => {
     e.preventDefault();
     if (currentUser) {
-      const res = await axios.post("/comments", {
+      const res = await axios.post("/api/v1/comments", {
         videoId: path,
         desc: newComments,
         userId: currentUser._id,

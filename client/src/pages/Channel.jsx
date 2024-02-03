@@ -137,7 +137,7 @@ const Channel = () => {
   React.useEffect(() => {
     const fetchChannel = async () => {
       try {
-        const res = await axios.get(`/users/find/${path}`);
+        const res = await axios.get(`/api/v1/users/find/${path}`);
         setChannel(res.data);
       } catch (error) {
         console.log(error);
@@ -150,7 +150,7 @@ const Channel = () => {
   React.useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get(`/videos/personal/${channel._id}`);
+        const res = await axios.get(`/api/v1/videos/personal/${channel._id}`);
         setVideos(res.data);
       } catch (error) {
         console.log(error);
@@ -163,8 +163,8 @@ const Channel = () => {
   const handleSubscribe = async (e) => {
     e.preventDefault();
     currentUser.subscribedUsers?.includes(channel._id)
-      ? await axios.put(`/users/unsub/${channel._id}`)
-      : await axios.put(`/users/sub/${channel._id}`);
+      ? await axios.put(`/api/v1/users/unsub/${channel._id}`)
+      : await axios.put(`/api/v1/users/sub/${channel._id}`);
     dispatch(subscription(channel._id));
   };
   return (

@@ -104,7 +104,7 @@ const Comment = ({ comment, currentUser }) => {
   React.useEffect(() => {
     const fetchComment = async () => {
       try {
-        const res = await axios.get(`/users/find/${comment.userId}`);
+        const res = await axios.get(`/api/v1/users/find/${comment.userId}`);
         setChannel(res.data);
       } catch (err) {}
     };
@@ -114,7 +114,7 @@ const Comment = ({ comment, currentUser }) => {
   const handleDelete = async () => {
     if (currentUser) {
       if (currentUser._id === comment.userId) {
-        await axios.delete(`/comments/${comment._id}`);
+        await axios.delete(`/api/v1/comments/${comment._id}`);
         dispatch(commentDelete(comment._id));
       } else {
         setMessage(true);
@@ -139,7 +139,7 @@ const Comment = ({ comment, currentUser }) => {
 
       {currentUser && <Button onClick={handleDelete}>X</Button>}
       {message && (
-        <MessagePop className="flag">
+        <MessagePop className='flag'>
           <Img src={BargoTube} />
           <MessageText>You can delete only your message</MessageText>
         </MessagePop>
