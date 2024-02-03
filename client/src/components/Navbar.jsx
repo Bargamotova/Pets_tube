@@ -89,7 +89,8 @@ const Avatar = styled.img`
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
   const [openSet, setOpenSet] = React.useState(false);
-  const FP = "http://localhost:8800/access/";
+  const FP = process.env.REACT_APP_IMG_URL;
+  
   const [q, setQ] = React.useState("");
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);

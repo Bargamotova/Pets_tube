@@ -115,7 +115,8 @@ const Update = () => {
   const [success, setSuccess] = React.useState(false);
   const [check, setCheck] = React.useState(false);
   const dispatch = useDispatch();
-  const FP = "http://localhost:8800/access/";
+  const FP = process.env.REACT_APP_IMG_URL;
+  
   const handleChangeAvatar = (e) => {
     e.preventDefault();
     setCheck(true);

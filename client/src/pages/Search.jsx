@@ -12,6 +12,7 @@ const Container = styled.div`
 const Search = () => {
   const [videos, setVideos] = React.useState([]);
   const query = useLocation().search;
+
   React.useEffect(() => {
     const fetchVideos = async () => {
       try {

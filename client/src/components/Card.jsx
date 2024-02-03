@@ -62,7 +62,9 @@ const Info = styled.div`
 
 const Card = ({ type, video }) => {
   const [channels, setChannel] = React.useState({});
-  const FP = "http://localhost:8800/access/";
+  // const process.env.REACT_APP_IMG_URL = "http://localhost:8800/access/";
+  const FP = process.env.REACT_APP_IMG_URL;
+
   React.useEffect(() => {
     const fetchChannel = async () => {
       const res = await axios.get(

@@ -100,6 +100,7 @@ const Upload = ({ setOpen }) => {
   const [imgPer, setImgPer] = React.useState(0);
   const [videoPer, setVideoPer] = React.useState(0);
   const navigate = useNavigate();
+  
   const handleChange = (e) => {
     setInputs((prev) => {
       return { ...prev, [e.target.name]: e.target.value };

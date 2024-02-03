@@ -96,7 +96,8 @@ const Settings = ({ setOpenSet, openSet }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
-  const FP = "http://localhost:8800/access/";
+  const FP = process.env.REACT_APP_IMG_URL;
+  
   const handleLogOut = (e) => {
     e.preventDefault();
     dispatch(logOut());

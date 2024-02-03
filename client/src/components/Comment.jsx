@@ -99,7 +99,8 @@ const Comment = ({ comment, currentUser }) => {
   const [channel, setChannel] = React.useState({});
   const [message, setMessage] = React.useState(false);
   const dispatch = useDispatch();
-  const FP = "http://localhost:8800/access/";
+  const FP = process.env.REACT_APP_IMG_URL;
+
   React.useEffect(() => {
     const fetchComment = async () => {
       try {

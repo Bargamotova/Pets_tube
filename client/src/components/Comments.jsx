@@ -60,6 +60,7 @@ const Comments = () => {
   const [newComments, setNewComments] = React.useState("");
   const { currentUser } = useSelector((state) => state.user);
   const path = useLocation().pathname.split("/")[2];
+
   React.useEffect(() => {
     const fetchComments = async () => {
       try {

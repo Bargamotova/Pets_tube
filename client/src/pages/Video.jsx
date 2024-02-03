@@ -138,7 +138,8 @@ const Video = () => {
   const navigate = useNavigate();
   const pathUrl = useLocation().pathname.split("/")[2];
 
-  const FP = "http://localhost:8800/access/";
+  const FP = process.env.REACT_APP_IMG_URL;
+  
   React.useEffect(() => {
     try {
       const fetchVideoData = async () => {

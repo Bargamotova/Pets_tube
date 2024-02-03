@@ -7,6 +7,7 @@ const Container = styled.div`
 `;
 const Recommendation = ({ tags }) => {
   const [videos, setVideos] = React.useState([]);
+
   React.useEffect(() => {
     const fetchVideos = async () => {
       const { data } = await axios.get(
