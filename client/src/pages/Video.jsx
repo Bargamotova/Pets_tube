@@ -139,11 +139,13 @@ const Video = () => {
   const pathUrl = useLocation().pathname.split("/")[2];
 
   const FP = "http://localhost:8800/access/";
-
+  const baseUrl = "https://pets-tube-back.vercel.app";
   React.useEffect(() => {
     try {
       const fetchVideoData = async () => {
-        const videoRes = await axios.get(`/api/v1/videos/find/${pathUrl}`);
+        const videoRes = await axios.get(
+          baseUrl + `/api/v1/videos/find/${pathUrl}`
+        );
         dispatch(fetchSuccess(videoRes.data));
         console.log(videoRes.data);
       };
@@ -158,7 +160,9 @@ const Video = () => {
 
   const fetchInfoVideo = async (video, user) => {
     try {
-      const channelRes = await axios.get(`/api/v1/users/find/${video.userId}`);
+      const channelRes = await axios.get(
+        baseUrl + `/api/v1/users/find/${video.userId}`
+      );
       setChannel(channelRes.data);
       console.log(channelRes.data);
     } catch (error) {
@@ -166,7 +170,7 @@ const Video = () => {
     }
     if (user) {
       if (video?.userId !== user?._id) {
-        const res = await axios.put(`/api/v1/videos/view/${pathUrl}`);
+        const res = await axios.put(baseUrl + `/api/v1/videos/view/${pathUrl}`);
         dispatch(view(res.data.view));
       }
     }
@@ -177,19 +181,20 @@ const Video = () => {
   }, [currentUser, currentVideo]);
 
   const handleLike = async () => {
-    currentUser && (await axios.put(`/api/v1/users/like/${currentVideo._id}`));
+    currentUser &&
+      (await axios.put(baseUrl + `/api/v1/users/like/${currentVideo._id}`));
     currentUser && dispatch(like(currentUser._id));
   };
   const handleDislike = async () => {
     currentUser &&
-      (await axios.put(`/api/v1/users/dislike/${currentVideo._id}`));
+      (await axios.put(baseUrl + `/api/v1/users/dislike/${currentVideo._id}`));
     currentUser && dispatch(dislike(currentUser._id));
   };
   const handleSubscribe = async (e) => {
     e.preventDefault();
     currentUser.subscribedUsers?.includes(channel._id)
-      ? await axios.put(`/api/v1/users/unsub/${channel._id}`)
-      : await axios.put(`/api/v1/users/sub/${channel._id}`);
+      ? await axios.put(baseUrl + `/api/v1/users/unsub/${channel._id}`)
+      : await axios.put(baseUrl + `/api/v1/users/sub/${channel._id}`);
     dispatch(subscription(channel._id));
   };
 

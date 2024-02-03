@@ -133,11 +133,11 @@ const Channel = () => {
   const navigate = useNavigate();
   const path = useLocation().pathname.split("/")[2];
   const FP = "http://localhost:8800/access/";
-
+  const baseUrl = "https://pets-tube-back.vercel.app";
   React.useEffect(() => {
     const fetchChannel = async () => {
       try {
-        const res = await axios.get(`/api/v1/users/find/${path}`);
+        const res = await axios.get(baseUrl + `/api/v1/users/find/${path}`);
         setChannel(res.data);
       } catch (error) {
         console.log(error);
@@ -150,7 +150,9 @@ const Channel = () => {
   React.useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get(`/api/v1/videos/personal/${channel._id}`);
+        const res = await axios.get(
+          baseUrl + `/api/v1/videos/personal/${channel._id}`
+        );
         setVideos(res.data);
       } catch (error) {
         console.log(error);
@@ -163,8 +165,8 @@ const Channel = () => {
   const handleSubscribe = async (e) => {
     e.preventDefault();
     currentUser.subscribedUsers?.includes(channel._id)
-      ? await axios.put(`/api/v1/users/unsub/${channel._id}`)
-      : await axios.put(`/api/v1/users/sub/${channel._id}`);
+      ? await axios.put(baseUrl + `/api/v1/users/unsub/${channel._id}`)
+      : await axios.put(baseUrl + `/api/v1/users/sub/${channel._id}`);
     dispatch(subscription(channel._id));
   };
   return (
@@ -206,7 +208,7 @@ const Channel = () => {
       <Hr />
       <Inner>
         {videos?.map((video) => (
-          <Card key={video._id} video={video} type="mid" />
+          <Card key={video._id} video={video} type='mid' />
         ))}
       </Inner>
     </Container>

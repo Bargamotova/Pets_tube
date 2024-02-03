@@ -116,7 +116,7 @@ const Update = () => {
   const [check, setCheck] = React.useState(false);
   const dispatch = useDispatch();
   const FP = "http://localhost:8800/access/";
-
+  const baseUrl = "https://pets-tube-back.vercel.app";
   const handleChangeAvatar = (e) => {
     e.preventDefault();
     setCheck(true);
@@ -137,7 +137,7 @@ const Update = () => {
       updatedUser.img = filename;
       console.log("FILE :", file);
       try {
-        const dataI = await axios.post("/api/v1/users/change-avatar", formData);
+        const dataI = await axios.post(baseUrl + "/api/v1/users/change-avatar", formData);
         console.log("About image data :", dataI.data.img);
         updatedUser.img = dataI.data.img;
       } catch (error) {
@@ -146,7 +146,7 @@ const Update = () => {
     }
     try {
       const { data } = await axios.put(
-        `/api/v1/users/${currentUser._id}`,
+        baseUrl + `/api/v1/users/${currentUser._id}`,
         updatedUser
       );
       setSuccess(true);

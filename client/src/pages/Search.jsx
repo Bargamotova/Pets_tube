@@ -12,11 +12,11 @@ const Container = styled.div`
 const Search = () => {
   const [videos, setVideos] = React.useState([]);
   const query = useLocation().search;
-
+  const baseUrl = "https://pets-tube-back.vercel.app";
   React.useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get(`/api/v1/videos/search${query}`);
+        const res = await axios.get(baseUrl + `/api/v1/videos/search${query}`);
         console.log(res.data);
         setVideos(res.data);
       } catch (err) {}

@@ -100,7 +100,7 @@ const Upload = ({ setOpen }) => {
   const [imgPer, setImgPer] = React.useState(0);
   const [videoPer, setVideoPer] = React.useState(0);
   const navigate = useNavigate();
-
+  const baseUrl = "https://pets-tube-back.vercel.app";
   const handleChange = (e) => {
     setInputs((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -156,7 +156,7 @@ const Upload = ({ setOpen }) => {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/videos", { ...inputs, tags });
+    const res = await axios.post(baseUrl + "/videos", { ...inputs, tags });
     setOpen(false);
     res.status === 200 && navigate(`/video/${res.data._id}`);
   };

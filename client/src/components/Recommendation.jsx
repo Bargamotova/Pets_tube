@@ -7,9 +7,12 @@ const Container = styled.div`
 `;
 const Recommendation = ({ tags }) => {
   const [videos, setVideos] = React.useState([]);
+  const baseUrl = "https://pets-tube-back.vercel.app";
   React.useEffect(() => {
     const fetchVideos = async () => {
-      const { data } = await axios.get(`/api/v1/videos/tags?tags=${tags}`);
+      const { data } = await axios.get(
+        baseUrl + `/api/v1/videos/tags?tags=${tags}`
+      );
       setVideos(data);
     };
     fetchVideos();
@@ -17,7 +20,7 @@ const Recommendation = ({ tags }) => {
   return (
     <Container>
       {videos.map((video) => (
-        <Card type="sm" video={video} key={video._id} />
+        <Card type='sm' video={video} key={video._id} />
       ))}
     </Container>
   );

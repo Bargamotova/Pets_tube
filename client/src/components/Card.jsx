@@ -63,10 +63,12 @@ const Info = styled.div`
 const Card = ({ type, video }) => {
   const [channels, setChannel] = React.useState({});
   const FP = "http://localhost:8800/access/";
-
+  const baseUrl = "https://pets-tube-back.vercel.app";
   React.useEffect(() => {
     const fetchChannel = async () => {
-      const res = await axios.get(`/api/v1/users/find/${video?.userId}`);
+      const res = await axios.get(
+        baseUrl + `/api/v1/users/find/${video?.userId}`
+      );
       setChannel(res.data);
     };
     fetchChannel();
