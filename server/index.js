@@ -11,12 +11,12 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 const app = express();
-// const opt = {
-//   origin: 'http://pets-tube-front.vercel.app',
-//   credentials: true,
-//   optionSuccessStatus: 200
-// }
-app.use(cors());
+const opt = {
+  origin: 'http://pets-tube-front.vercel.app',
+  credentials: true,
+  optionSuccessStatus: 200
+}
+app.use(cors(opt));
 app.use(express.json());
 
 mongoose
