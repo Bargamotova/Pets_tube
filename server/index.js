@@ -12,7 +12,7 @@ import cors from 'cors';
 
 const app = express();
 const opt = {
-  origin: 'http://pets-tube-front.vercel.app',
+  origin: '*',
   credentials: true,
   optionSuccessStatus: 200
 }
