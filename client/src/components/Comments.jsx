@@ -60,11 +60,12 @@ const Comments = () => {
   const [newComments, setNewComments] = React.useState("");
   const { currentUser } = useSelector((state) => state.user);
   const path = useLocation().pathname.split("/")[2];
-  const baseUrl = "https://pets-tube-back.vercel.app";
   React.useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(baseUrl + `/api/v1/comments/${path}`);
+        const res = await axios.get(
+          process.env.REACT_APP_BASE_URL + `/api/v1/comments/${path}`
+        );
         dispatch(commentSuccess(res.data));
       } catch (err) {}
     };
@@ -77,11 +78,14 @@ const Comments = () => {
   const handleComment = async (e) => {
     e.preventDefault();
     if (currentUser) {
-      const res = await axios.post(baseUrl + "/api/v1/comments", {
-        videoId: path,
-        desc: newComments,
-        userId: currentUser._id,
-      });
+      const res = await axios.post(
+        process.env.REACT_APP_BASE_URL + "/api/v1/comments",
+        {
+          videoId: path,
+          desc: newComments,
+          userId: currentUser._id,
+        }
+      );
       dispatch(commentAdd(res.data));
       setNewComments("");
     }

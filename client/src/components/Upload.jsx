@@ -100,7 +100,6 @@ const Upload = ({ setOpen }) => {
   const [imgPer, setImgPer] = React.useState(0);
   const [videoPer, setVideoPer] = React.useState(0);
   const navigate = useNavigate();
-  const baseUrl = "https://pets-tube-back.vercel.app";
   const handleChange = (e) => {
     setInputs((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -156,7 +155,10 @@ const Upload = ({ setOpen }) => {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    const res = await axios.post(baseUrl + "/videos", { ...inputs, tags });
+    const res = await axios.post(process.env.REACT_APP_BASE_URL + "/videos", {
+      ...inputs,
+      tags,
+    });
     setOpen(false);
     res.status === 200 && navigate(`/video/${res.data._id}`);
   };
@@ -180,28 +182,28 @@ const Upload = ({ setOpen }) => {
           </>
         ) : (
           <InputFile
-            type="file"
-            placeholder=""
-            accept="video/*"
+            type='file'
+            placeholder=''
+            accept='video/*'
             onChange={(e) => setVideo(e.target.files[0])}
           />
         )}
 
         <Input
-          type="text"
-          name="title"
-          placeholder="Title"
+          type='text'
+          name='title'
+          placeholder='Title'
           onChange={handleChange}
         />
         <Desc
-          type="text"
-          name="desc"
-          placeholder="Description"
+          type='text'
+          name='desc'
+          placeholder='Description'
           onChange={handleChange}
         />
         <Input
-          type="text"
-          placeholder="Separate the tags with commas"
+          type='text'
+          placeholder='Separate the tags with commas'
           onChange={handleTags}
         />
         <Label>Poster: </Label>
@@ -218,10 +220,10 @@ const Upload = ({ setOpen }) => {
           </>
         ) : (
           <InputFile
-            type="file"
-            placeholder="Image"
-            accept="image/*"
-            id="input-img"
+            type='file'
+            placeholder='Image'
+            accept='image/*'
+            id='input-img'
             onChange={(e) => setImage(e.target.files[0])}
           />
         )}

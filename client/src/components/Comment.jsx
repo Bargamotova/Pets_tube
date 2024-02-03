@@ -100,12 +100,12 @@ const Comment = ({ comment, currentUser }) => {
   const [message, setMessage] = React.useState(false);
   const dispatch = useDispatch();
   const FP = "http://localhost:8800/access/";
-  const baseUrl = "https://pets-tube-back.vercel.app";
   React.useEffect(() => {
     const fetchComment = async () => {
       try {
         const res = await axios.get(
-          baseUrl + `/api/v1/users/find/${comment.userId}`
+          process.env.REACT_APP_BASE_URL +
+            `/api/v1/users/find/${comment.userId}`
         );
         setChannel(res.data);
       } catch (err) {}
@@ -116,7 +116,9 @@ const Comment = ({ comment, currentUser }) => {
   const handleDelete = async () => {
     if (currentUser) {
       if (currentUser._id === comment.userId) {
-        await axios.delete(baseUrl + `/api/v1/comments/${comment._id}`);
+        await axios.delete(
+          process.env.REACT_APP_BASE_URL + `/api/v1/comments/${comment._id}`
+        );
         dispatch(commentDelete(comment._id));
       } else {
         setMessage(true);

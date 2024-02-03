@@ -116,7 +116,6 @@ const Update = () => {
   const [check, setCheck] = React.useState(false);
   const dispatch = useDispatch();
   const FP = "http://localhost:8800/access/";
-  const baseUrl = "https://pets-tube-back.vercel.app";
   const handleChangeAvatar = (e) => {
     e.preventDefault();
     setCheck(true);
@@ -137,7 +136,10 @@ const Update = () => {
       updatedUser.img = filename;
       console.log("FILE :", file);
       try {
-        const dataI = await axios.post(baseUrl + "/api/v1/users/change-avatar", formData);
+        const dataI = await axios.post(
+          process.env.REACT_APP_BASE_URL + "/api/v1/users/change-avatar",
+          formData
+        );
         console.log("About image data :", dataI.data.img);
         updatedUser.img = dataI.data.img;
       } catch (error) {
@@ -146,7 +148,7 @@ const Update = () => {
     }
     try {
       const { data } = await axios.put(
-        baseUrl + `/api/v1/users/${currentUser._id}`,
+        process.env.REACT_APP_BASE_URL + `/api/v1/users/${currentUser._id}`,
         updatedUser
       );
       setSuccess(true);
@@ -171,19 +173,19 @@ const Update = () => {
         </BlockImg>
         <Info>
           <FormAvatar>
-            <label htmlFor="avatar">
+            <label htmlFor='avatar'>
               <AddPhotoAlternateIcon />
             </label>
 
             <Input
-              type="file"
-              name="old_avatar"
-              id="avatar"
+              type='file'
+              name='old_avatar'
+              id='avatar'
               style={{ display: "none" }}
               onChange={(e) => setFile(e.target.files[0])}
             />
             <UpdateAvatar
-              type="submit"
+              type='submit'
               onClick={handleChangeAvatar}
               style={
                 check
@@ -202,24 +204,24 @@ const Update = () => {
           </FormAvatar>
           <Details onSubmit={handleUpdate}>
             <Input
-              type="text"
+              type='text'
               value={name}
               placeholder={name}
               onChange={(e) => setName(e.target.value)}
             />
             <Text
-              type="text"
+              type='text'
               placeholder={desc}
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
             />
 
-            <UpdateBtn type="submit">Update</UpdateBtn>
+            <UpdateBtn type='submit'>Update</UpdateBtn>
           </Details>
         </Info>
       </Wrapper>
       {success && (
-        <Success className="settings__success">
+        <Success className='settings__success'>
           Your profile has been updated...
         </Success>
       )}

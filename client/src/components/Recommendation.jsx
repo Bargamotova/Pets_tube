@@ -7,11 +7,10 @@ const Container = styled.div`
 `;
 const Recommendation = ({ tags }) => {
   const [videos, setVideos] = React.useState([]);
-  const baseUrl = "https://pets-tube-back.vercel.app";
   React.useEffect(() => {
     const fetchVideos = async () => {
       const { data } = await axios.get(
-        baseUrl + `/api/v1/videos/tags?tags=${tags}`
+        process.env.REACT_APP_BASE_URL + `/api/v1/videos/tags?tags=${tags}`
       );
       setVideos(data);
     };

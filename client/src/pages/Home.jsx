@@ -12,12 +12,16 @@ const Container = styled.div`
 
 const Home = ({ type, choice }) => {
   const [videos, setVideos] = React.useState([]);
-  const baseUrl = "https://pets-tube-back.vercel.app";
   React.useEffect(() => {
     const fetchVideos = async () => {
       const { data } = type
-        ? await axios.get(baseUrl + `/api/v1/videos/${type}`)
-        : await axios.get(baseUrl + `/api/v1/videos/tags?tags=${choice}`);
+        ? await axios.get(
+            process.env.REACT_APP_BASE_URL + `/api/v1/videos/${type}`
+          )
+        : await axios.get(
+            process.env.REACT_APP_BASE_URL +
+              `/api/v1/videos/tags?tags=${choice}`
+          );
       setVideos(data);
     };
     fetchVideos();

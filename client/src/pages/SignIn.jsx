@@ -79,15 +79,17 @@ const SignIn = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const dispatch = useDispatch();
-  const baseUrl = "https://pets-tube-back.vercel.app";
   const handleLogin = async (e) => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post(baseUrl + "/api/v1/auth/signIn", {
-        name,
-        password,
-      });
+      const res = await axios.post(
+        process.env.REACT_APP_BASE_URL + "/api/v1/auth/signIn",
+        {
+          name,
+          password,
+        }
+      );
       dispatch(loginSuccess(res.data));
       navigate("/");
     } catch (error) {
@@ -99,7 +101,7 @@ const SignIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         axios
-          .post(baseUrl + "/api/v1/auth/google", {
+          .post(process.env.REACT_APP_BASE_URL + "/api/v1/auth/google", {
             name: result.user.displayName,
             email: result.user.email,
             img: result.user.photoURL,
@@ -117,11 +119,14 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post(baseUrl + "/auth/signup", {
-        name,
-        email,
-        password,
-      });
+      const res = await axios.post(
+        process.env.REACT_APP_BASE_URL + "/auth/signup",
+        {
+          name,
+          email,
+          password,
+        }
+      );
       dispatch(loginSuccess(res.data));
       navigate("/");
     } catch (error) {
