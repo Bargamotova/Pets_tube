@@ -55,7 +55,8 @@ app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/videos', videoRoute);
 app.use('/api/v1/comments', commentRoute);
-app.get('/api/v1/', (req, res) => res.json({ message: 'Okay' }))
+
+app.get('', (req, res) => res.json({ message: 'Okay' }))
 
 
 app.use((err, req, res, __) => {
