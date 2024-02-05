@@ -90,10 +90,10 @@ export const subscribe = async (req, res, next) => {
 
   try {
     //user id
-    await User.findByIdAndUpdate(req.user.id, {
-      $push: { subscribedUsers: req.params.id },
+    await User.findByIdAndUpdate(req.user._id, {
+      $push: { subscribedUsers: req.params._id },
     })
-    await User.findByIdAndUpdate(req.params.id, {
+    await User.findByIdAndUpdate(req.params._id, {
       $inc: { subscribers: 1 },
     });
     res.status(200).json('Subscriptions successful');
