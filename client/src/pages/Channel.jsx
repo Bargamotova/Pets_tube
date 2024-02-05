@@ -9,6 +9,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import { useDispatch, useSelector } from "react-redux";
 import { subscription } from "../redux/userSlice";
 import Card from "../components/Card";
+import { device } from "../utils/media";
 
 const Container = styled.div`
   color: ${({ theme }) => theme.text};
@@ -16,6 +17,21 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 30px;
+`;
+
+const Details = styled.div`
+  align-items: end;
+  gap: 60px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 45px;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  @media ${device.tablet} {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+    column-gap: 0;
+  }
 `;
 const BlockImg = styled.div`
   width: 250px;
@@ -26,10 +42,9 @@ const BlockImg = styled.div`
   position: relative;
   box-shadow: 0 7px 18px 5px rgba(12, 12, 12, 0.5),
     0px 0px 0px 10px rgba(62, 166, 255, 0.5);
-
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
+  @media ${device.tablet} {
+    justify-self: center;
+  }
 `;
 const Avatar = styled.img`
   position: absolute;
@@ -37,21 +52,16 @@ const Avatar = styled.img`
   object-fit: cover;
   width: 100%;
 `;
-const Details = styled.div`
-  display: flex;
-  align-items: end;
-  gap: 60px;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 45px;
-  display: grid;
-  grid-template-columns: 1fr 2.5fr 1fr;
-`;
 const Info = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  /* width: 60%; */
+  @media ${device.tablet} {
+    grid-column: 1/-1;
+  }
+  @media ${device.laptopL} {
+    grid-column: 1/3;
+  }
 `;
 const Background = styled.div`
   width: 100%;
@@ -59,6 +69,9 @@ const Background = styled.div`
   border-radius: 10px;
   background: rgba(62, 166, 255, 0.5);
   margin-bottom: 45px;
+  @media ${device.tablet} {
+    display: none;
+  }
 `;
 const Desc = styled.h3`
   color: ${({ theme }) => theme.text};
@@ -113,6 +126,10 @@ const Inner = styled.div`
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
+  @media ${device.mobileL} {
+    justify-content: center;
+    grid-column: 1/-1;
+  }
 `;
 
 const SocialIcons = styled.div`

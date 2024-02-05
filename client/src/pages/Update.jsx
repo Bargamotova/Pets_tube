@@ -1,12 +1,11 @@
 import axios from "axios";
 import React from "react";
-// import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-// import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import CheckIcon from "@mui/icons-material/Check";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { updateChannel } from "../redux/userSlice";
+import { device } from "../utils/media";
 const Success = styled.div`
   color: #148f04;
   font-size: 24px;
@@ -22,11 +21,20 @@ const Background = styled.div`
   border-radius: 10px;
   background: rgba(62, 166, 255, 0.5);
   margin-bottom: 70px;
+  @media ${device.tablet} {
+    display: none;
+  }
 `;
 const Wrapper = styled.div`
-  display: flex;
   gap: 60px;
   padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  @media ${device.laptop} {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+    column-gap: 0;
+  }
 `;
 const BlockImg = styled.div`
   color: ${({ theme }) => theme.text};
@@ -51,11 +59,12 @@ const Info = styled.div`
   align-items: flex-start;
   gap: 20px;
   position: relative;
-  width: 50%;
 `;
 const FormAvatar = styled.form``;
 const UpdateAvatar = styled.button`
   position: absolute;
+  width: 30px;
+  height: 30px;
   left: -125px;
   top: 230px;
   border: none;
@@ -63,6 +72,10 @@ const UpdateAvatar = styled.button`
   background: transparent;
   border: 1px solid;
   color: ${({ theme }) => theme.text};
+  @media ${device.laptop} {
+    left: 90%;
+    top: 0;
+  }
 `;
 const Details = styled.form`
   display: flex;
@@ -78,6 +91,7 @@ const Input = styled.input`
   background: transparent;
   border-radius: 3px;
   position: relative;
+  max-width: 612px;
 `;
 const UpdateBtn = styled.button`
   font-weight: 500;
@@ -116,7 +130,7 @@ const Update = () => {
   const [check, setCheck] = React.useState(false);
   const dispatch = useDispatch();
   const FP = process.env.REACT_APP_IMG_URL;
-  
+
   const handleChangeAvatar = (e) => {
     e.preventDefault();
     setCheck(true);
@@ -155,8 +169,6 @@ const Update = () => {
       setSuccess(true);
       dispatch(updateChannel(data));
       setCheck(false);
-      console.log(check);
-      console.log(data);
     } catch (error) {
       console.log(error);
       setSuccess(false);

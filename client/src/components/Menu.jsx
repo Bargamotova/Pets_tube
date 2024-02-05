@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import CloseIcon from "@mui/icons-material/Close";
 
 import styled from "styled-components";
 import BargoTube from "../img/CatsTube3.svg";
@@ -20,7 +21,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import FlagIcon from "@mui/icons-material/Flag";
 import HelpIcon from "@mui/icons-material/Help";
 import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
-
+import { device } from "../utils/media";
+import useScreenWidth from "../hooks/useScreenSize";
 const Container = styled.div`
   flex: 1;
   min-width: 260px;
@@ -30,27 +32,38 @@ const Container = styled.div`
   color: ${({ theme }) => theme.text};
   position: sticky;
   top: 0;
-  z-index: 3;
-
+  z-index: 6;
+  transition: transform 0.3s;
+  transform: translateX(0);
   box-shadow: 0 7px 18px 5px rgba(12, 12, 12, 0.5),
     0px 75px 0px 10px rgba(62, 166, 255, 0.5);
+  @media ${device.tablet} {
+    transform: translateX(-100%);
+    position: fixed;
+    box-shadow: none;
+    overflow-y: scroll;
+  }
 `;
 
 const Wrapper = styled.div`
   padding: 1.8rem 2.6rem;
-  padding-top: 1rem;
+  padding-top: 0;
   position: relative;
+  height: 100%;
 `;
 const Logo = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
   font-weight: bold;
-  margin-bottom: 25px;
+
   font-size: 0.875rem;
   z-index: 5;
   left: -24px;
   position: relative;
+
+  padding: 1.8rem 2.6rem;
+  padding-top: 1rem;
 `;
 const Title = styled.h2`
   font-size: 0.875rem;
@@ -74,7 +87,6 @@ const Cats = styled.span`
   margin-right: 3px;
   margin-left: -10px;
   color: #ff4227;
-  /* color: ${({ theme }) => theme.text}; */
 `;
 const Item = styled.div`
   display: flex;
@@ -86,7 +98,6 @@ const Item = styled.div`
   position: relative;
 
   &:hover {
-    /* background: ${({ theme }) => theme.soft}; */
     background: #3ea6ff4c;
   }
 `;
@@ -112,23 +123,56 @@ const Button = styled.button`
   gap: 5px;
   position: relative;
 `;
-
-const Menu = ({ darkMode, setDarkMode }) => {
+const ButtonClose = styled.button`
+  padding: 5px 15px;
+  background: transparent;
+  border: transparent;
+  color: #3ea6ff;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  z-index: 100;
+  transition: left 0.3s;
+  display: none;
+  @media ${device.tablet} {
+    display: block;
+  }
+`;
+const Menu = ({ darkMode, setDarkMode, open, setOpen }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const screenSize = useScreenWidth();
 
+  useEffect(() => {
+    screenSize.width > 768 && setOpen(true);
+  }, [screenSize]);
+  const handleClose = (e) => {
+    e.preventDefault();
+    setOpen(!open);
+  };
   return (
-    <Container>
+    <Container
+      style={
+        open
+          ? { transform: "translateX(0%)" }
+          : { transform: "translateX(-100%)" }
+      }
+    >
+      <Link to='/' style={{ textDecoration: "none", color: "inherit" }}>
+        <Logo>
+          <Img src={BargoTube} />
+          <Cats>Pets</Cats>Tube
+        </Logo>
+        {open && (
+          <ButtonClose onClick={handleClose}>
+            <CloseIcon />
+          </ButtonClose>
+        )}
+      </Link>
       <Wrapper>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-          <Logo>
-            <Img src={BargoTube} />
-            <Cats>Pets</Cats>Tube
-          </Logo>
-        </Link>
-
-        <Item>
+        <Item onClick={() => setOpen(false)}>
           <Link
-            to="/"
+            to='/'
             style={{
               textDecoration: "none",
               color: "inherit",
@@ -139,15 +183,15 @@ const Menu = ({ darkMode, setDarkMode }) => {
           <HomeIcon />
           Home
         </Item>
-        <Item>
-          <Link to="trends" style={{ position: "absolute", inset: "0" }} />
+        <Item onClick={() => setOpen(false)}>
+          <Link to='trends' style={{ position: "absolute", inset: "0" }} />
           <ExploreIcon />
           Explore
         </Item>
         {currentUser && (
           <Item>
             <Link
-              to="subscriptions"
+              to='subscriptions'
               style={{ position: "absolute", inset: "0" }}
             />
             <SubscriptionsIcon />
@@ -171,7 +215,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
               Sign to like videos, comment, and subscribe.
               <Button>
                 <Link
-                  to="signIn"
+                  to='signIn'
                   style={{ position: "absolute", inset: "0" }}
                 />
                 <AccountCircleIcon />
@@ -183,8 +227,8 @@ const Menu = ({ darkMode, setDarkMode }) => {
         )}
 
         <Title>Best of CatsTube</Title>
-        <Item>
-          <Link to="music" style={{ position: "absolute", inset: "0" }} />
+        <Item onClick={() => setOpen(false)}>
+          <Link to='music' style={{ position: "absolute", inset: "0" }} />
           <LibraryMusicIcon />
           Music
         </Item>

@@ -7,11 +7,14 @@ const Container = styled.div`
   color: ${({ theme }) => theme.text};
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
   gap: 30px;
 `;
 
 const Home = ({ type, choice }) => {
   const [videos, setVideos] = React.useState([]);
+
   React.useEffect(() => {
     const fetchVideos = async () => {
       const { data } = type

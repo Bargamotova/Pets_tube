@@ -11,6 +11,7 @@ import { persistor } from "../redux/store.js";
 import Upload from "./Upload.jsx";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Settings from "./Settings.jsx";
+import { device } from "../utils/media.js";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgLighter};
@@ -46,7 +47,7 @@ const Search = styled.div`
   border-radius: 30px;
   overflow: hidden;
   color: ${({ theme }) => theme.text};
-
+  padding-right: 5px;
   cursor: pointer;
 `;
 const Input = styled.input`
@@ -55,6 +56,12 @@ const Input = styled.input`
   border: none;
   color: ${({ theme }) => theme.text};
   background-color: transparent;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  &:focus {
+    outline-color: rgba(62, 166, 255, 0.5);
+    outline-width: 0.5px;
+  }
 `;
 const Button = styled.button`
   padding: 5px 15px;
@@ -68,6 +75,10 @@ const Button = styled.button`
   align-items: center;
   gap: 5px;
   position: relative;
+  @media ${device.tabletS} {
+    border: none;
+    padding: 5px;
+  }
 `;
 const User = styled.div`
   display: flex;
@@ -76,6 +87,7 @@ const User = styled.div`
   font-weight: 500;
   text-transform: capitalize;
   color: ${(theme) => theme.text};
+  margin-right: -30px;
 `;
 const Avatar = styled.img`
   width: 35px;
@@ -86,11 +98,12 @@ const Avatar = styled.img`
   cursor: pointer;
 `;
 
-const Navbar = () => {
+const Navbar = ({ screenSize }) => {
   const [open, setOpen] = React.useState(false);
   const [openSet, setOpenSet] = React.useState(false);
+
   const FP = process.env.REACT_APP_IMG_URL;
-  
+
   const [q, setQ] = React.useState("");
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
@@ -112,7 +125,7 @@ const Navbar = () => {
         <Wrapper>
           <Search>
             <Input
-              placeholder="Search"
+              placeholder='Search'
               value={q}
               onChange={(e) => setQ(e.target.value)}
             />
@@ -120,14 +133,19 @@ const Navbar = () => {
           </Search>
           {currentUser ? (
             <User>
-              <Button onClick={handleLogOut}>Log out</Button>
-              <VideoCallIcon onClick={() => setOpen(true)} />
+              {screenSize.width > 820 && (
+                <Button onClick={handleLogOut}>Log out</Button>
+              )}
+
+              {screenSize.width > 820 && (
+                <VideoCallIcon onClick={() => setOpen(true)} />
+              )}
               {currentUser?.img ? (
                 <Avatar src={FP + currentUser?.img} />
               ) : (
                 <PetsOutlinedIcon />
               )}
-              {currentUser.name}
+              {screenSize.width > 820 && currentUser.name}
               <Button
                 style={{ border: "none" }}
                 onClick={() => setOpenSet(!openSet)}
@@ -137,9 +155,9 @@ const Navbar = () => {
             </User>
           ) : (
             <Button>
-              <Link to="signIn" style={{ position: "absolute", inset: "0" }} />
+              <Link to='signIn' style={{ position: "absolute", inset: "0" }} />
               <AccountCircleIcon />
-              SIGN IN
+              {screenSize.width > 820 ? "SIGN IN" : ""}
             </Button>
           )}
         </Wrapper>

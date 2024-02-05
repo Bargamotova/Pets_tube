@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TimeAgo from "react-timeago";
 import axios from "axios";
+import { device } from "../utils/media";
 
 const Container = styled.div`
   cursor: pointer;
@@ -12,6 +13,16 @@ const Container = styled.div`
   margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
   display: ${(props) => props.type === "sm" && "flex"};
   background-color: ${({ theme }) => theme.bgLighter};
+
+  @media ${device.laptopL} {
+    width: 360px;
+  }
+  @media ${device.laptop} {
+    width: 309px;
+  }
+  @media ${device.mobileL} {
+    width: 100%;
+  }
 `;
 const Img = styled.img`
   width: ${(props) => (props.type === "sm" ? "50%" : "100%")};
@@ -62,7 +73,7 @@ const Info = styled.div`
 
 const Card = ({ type, video }) => {
   const [channels, setChannel] = React.useState({});
-  // const process.env.REACT_APP_IMG_URL = "http://localhost:8800/access/";
+
   const FP = process.env.REACT_APP_IMG_URL;
 
   React.useEffect(() => {
