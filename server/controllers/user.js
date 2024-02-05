@@ -99,6 +99,7 @@ export const subscribe = async (req, res, next) => {
     res.status(200).json('Subscriptions successful');
   } catch (error) {
     next(error);
+    console.log(error)
   }
 }
 export const unsubscribe = async (req, res, next) => {
