@@ -194,7 +194,7 @@ const Video = () => {
     fetchInfoVideo();
     console.log("CURRENT Video : ", currentVideo);
     console.log("CURRENT User : ", currentUser);
-  }, []);
+  }, [channel]);
   console.log("CHANNEL :", channel);
 
   const handleLike = async () => {
