@@ -146,9 +146,14 @@ const Menu = ({ darkMode, setDarkMode, open, setOpen }) => {
   useEffect(() => {
     screenSize.width > 768 && setOpen(true);
   }, [screenSize]);
+
   const handleClose = (e) => {
     e.preventDefault();
     setOpen(!open);
+  };
+  const handleCloseMenu = (e) => {
+    e.preventDefault();
+    screenSize.width <= 820 && setOpen(false);
   };
   return (
     <Container
@@ -170,7 +175,7 @@ const Menu = ({ darkMode, setDarkMode, open, setOpen }) => {
         )}
       </Link>
       <Wrapper>
-        <Item onClick={() => setOpen(false)}>
+        <Item onClick={handleCloseMenu}>
           <Link
             to='/'
             style={{
@@ -183,7 +188,7 @@ const Menu = ({ darkMode, setDarkMode, open, setOpen }) => {
           <HomeIcon />
           Home
         </Item>
-        <Item onClick={() => setOpen(false)}>
+        <Item onClick={handleCloseMenu}>
           <Link to='trends' style={{ position: "absolute", inset: "0" }} />
           <ExploreIcon />
           Explore
@@ -213,7 +218,7 @@ const Menu = ({ darkMode, setDarkMode, open, setOpen }) => {
           <>
             <Login>
               Sign to like videos, comment, and subscribe.
-              <Button>
+              <Button onClick={handleCloseMenu}>
                 <Link
                   to='signIn'
                   style={{ position: "absolute", inset: "0" }}
@@ -227,7 +232,7 @@ const Menu = ({ darkMode, setDarkMode, open, setOpen }) => {
         )}
 
         <Title>Best of CatsTube</Title>
-        <Item onClick={() => setOpen(false)}>
+        <Item onClick={handleCloseMenu}>
           <Link to='music' style={{ position: "absolute", inset: "0" }} />
           <LibraryMusicIcon />
           Music
