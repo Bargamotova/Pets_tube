@@ -215,16 +215,16 @@ const Video = () => {
   };
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    currentUser.subscribedUsers?.includes(channel._id)
+    currentUser.subscribedUsers?.includes(currentVideo.userId)
       ? await axios.put(
           process.env.REACT_APP_BASE_URL +
-            `/api/v1/users/unsub/${currentUser._id}`
+            `/api/v1/users/unsub/${currentVideo.userId}`
         )
       : await axios.put(
           process.env.REACT_APP_BASE_URL +
-            `/api/v1/users/sub/${currentUser._id}`
+            `/api/v1/users/sub/${currentVideo.userId}`
         );
-    dispatch(subscription(channel._id));
+    dispatch(subscription(currentVideo.userId));
   };
 
   return (
