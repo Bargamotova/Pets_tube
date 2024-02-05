@@ -15,11 +15,15 @@ import Comments from "../components/Comments";
 import { fetchSuccess, like, dislike, view } from "../redux/videoSlice";
 import { subscription } from "../redux/userSlice";
 import Recommendation from "../components/Recommendation";
+import { device } from "../utils/media";
 
 const Container = styled.div`
   display: flex;
   color: ${({ theme }) => theme.text};
   gap: 20px;
+  @media ${device.laptopS} {
+    flex-direction: column;
+  }
 `;
 const Content = styled.div`
   flex: 5;
@@ -50,12 +54,20 @@ const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 20px;
+  @media ${device.tabletS} {
+    font-size: 1.2rem;
+  }
 `;
 const Details = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  @media ${device.tabletS} {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
 `;
 const Info = styled.span`
   font-size: 0.875rem;
@@ -117,6 +129,9 @@ const ChannelCounter = styled.span`
 `;
 const Description = styled.p`
   font-size: 14px;
+  @media ${device.tabletS} {
+    display: none;
+  }
 `;
 const Subscribe = styled.button`
   font-weight: 500;
@@ -139,37 +154,34 @@ const Video = () => {
   const pathUrl = useLocation().pathname.split("/")[2];
 
   const FP = process.env.REACT_APP_IMG_URL;
-  
-  React.useEffect(() => {
+
+  const fetchVideoData = async () => {
     try {
-      const fetchVideoData = async () => {
-        const videoRes = await axios.get(
-          process.env.REACT_APP_BASE_URL + `/api/v1/videos/find/${pathUrl}`
-        );
-        dispatch(fetchSuccess(videoRes.data));
-        console.log(videoRes.data);
-      };
-      if (pathUrl) {
-        fetchVideoData();
-      }
+      const videoRes = await axios.get(
+        process.env.REACT_APP_BASE_URL + `/api/v1/videos/find/${pathUrl}`
+      );
+      dispatch(fetchSuccess(videoRes.data));
     } catch (error) {
       console.log(error);
       navigate("*");
     }
+  };
+  React.useEffect(() => {
+    fetchVideoData();
   }, [pathUrl, dispatch]);
 
-  const fetchInfoVideo = async (video, user) => {
+  const fetchInfoVideo = async () => {
     try {
       const channelRes = await axios.get(
-        process.env.REACT_APP_BASE_URL + `/api/v1/users/find/${video.userId}`
+        process.env.REACT_APP_BASE_URL +
+          `/api/v1/users/find/${currentVideo.userId}`
       );
       setChannel(channelRes.data);
-      console.log(channelRes.data);
     } catch (error) {
       console.log(error);
     }
-    if (user) {
-      if (video?.userId !== user?._id) {
+    if (currentUser) {
+      if (currentVideo?.userId !== currentUser?._id) {
         const res = await axios.put(
           process.env.REACT_APP_BASE_URL + `/api/v1/videos/view/${pathUrl}`
         );
@@ -179,8 +191,11 @@ const Video = () => {
   };
 
   React.useEffect(() => {
-    fetchInfoVideo(currentVideo, currentUser);
-  }, [currentUser, currentVideo]);
+    fetchInfoVideo();
+    console.log("CURRENT Video : ", currentVideo);
+    console.log("CURRENT User : ", currentUser);
+  }, []);
+  console.log("CHANNEL :", channel);
 
   const handleLike = async () => {
     currentUser &&
@@ -202,10 +217,12 @@ const Video = () => {
     e.preventDefault();
     currentUser.subscribedUsers?.includes(channel._id)
       ? await axios.put(
-          process.env.REACT_APP_BASE_URL + `/api/v1/users/unsub/${channel._id}`
+          process.env.REACT_APP_BASE_URL +
+            `/api/v1/users/unsub/${currentUser._id}`
         )
       : await axios.put(
-          process.env.REACT_APP_BASE_URL + `/api/v1/users/sub/${channel._id}`
+          process.env.REACT_APP_BASE_URL +
+            `/api/v1/users/sub/${currentUser._id}`
         );
     dispatch(subscription(channel._id));
   };

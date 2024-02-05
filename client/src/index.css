@@ -19,3 +19,23 @@ input[type="file" i]::-webkit-file-upload-button {
   color: #b0b0b0;
   mix-blend-mode: difference;
 }
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  background: transparent;
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 5px solid transparent;
+  background-color: rgba(62, 166, 255, 0.5);
+  background-clip: content-box;
+}

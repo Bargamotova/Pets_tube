@@ -40,8 +40,12 @@ const Container = styled.div`
   @media ${device.tablet} {
     transform: translateX(-100%);
     position: fixed;
-    box-shadow: none;
+
     overflow-y: scroll;
+  }
+  @media ${device.laptopS} {
+    overflow-y: scroll;
+    box-shadow: none;
   }
 `;
 

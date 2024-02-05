@@ -17,7 +17,9 @@ import { device } from './utils/media';
 import useScreenWidth from './hooks/useScreenSize';
 
 const Container = styled.div`
-display: flex;`;
+display: flex;
+
+`;
 
 const Main = styled.div`
 flex: 7;
@@ -26,7 +28,9 @@ background: ${({ theme }) => theme.bg};
 
 const Wrapper = styled.div`
   padding: 50px 50px 22px;
-  @media ${device.tablet} {
+  height: 100vh;
+  overflow-y: auto;
+  @media ${device.laptop} {
    padding: 50px 10px 20px;
   }
 `;
