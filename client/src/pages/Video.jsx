@@ -194,7 +194,7 @@ const Video = () => {
     fetchInfoVideo();
     console.log("CURRENT Video : ", currentVideo);
     console.log("CURRENT User : ", currentUser);
-  }, [currentVideo.userId]);
+  }, [channel._id]);
 
   const handleLike = async () => {
     currentUser &&
@@ -214,16 +214,14 @@ const Video = () => {
   };
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    currentUser.subscribedUsers?.includes(currentVideo.userId)
+    currentUser.subscribedUsers?.includes(channel._id)
       ? await axios.put(
-          process.env.REACT_APP_BASE_URL +
-            `/api/v1/users/unsub/${currentVideo.userId}`
+          process.env.REACT_APP_BASE_URL + `/api/v1/users/unsub/${channel._id}`
         )
       : await axios.put(
-          process.env.REACT_APP_BASE_URL +
-            `/api/v1/users/sub/${currentVideo.userId}`
+          process.env.REACT_APP_BASE_URL + `/api/v1/users/sub/${channel._id}`
         );
-    dispatch(subscription(currentVideo.userId));
+    dispatch(subscription(channel._id));
   };
 
   return (
