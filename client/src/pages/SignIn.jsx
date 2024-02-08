@@ -1,12 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 import styled from "styled-components";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
-import axios from "../axios";
+// import AxiosJWT from "../axios";
 const Container = styled.div`
   color: ${({ theme }) => theme.text};
   display: flex;
