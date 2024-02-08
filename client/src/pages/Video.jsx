@@ -3,7 +3,7 @@ import axios from "axios";
 import TimeAgo from "react-timeago";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import AxiosJWT from "../axios";
+import AxiosJWT from "../AxiosJwt";
 
 import styled from "styled-components";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -193,8 +193,6 @@ const Video = () => {
 
   React.useEffect(() => {
     fetchInfoVideo();
-    console.log("CURRENT Video : ", currentVideo);
-    console.log("CURRENT User : ", currentUser);
   }, [channel._id, pathUrl]);
 
   const handleLike = async () => {

@@ -15,7 +15,7 @@ export const verifyToken = (req, res, next) => {
 
 export const verifyAccessToken = (req, res, next) => {
   const token = (req.headers.Authorization || '').replace(/Bearer\s?/, '');
-  if (!token) next(createError(401, "You are not authenticated!!!"));
+  // if (!token) next(createError(401, "You are not authenticated!!!"));
 
   if (token) {
     try {

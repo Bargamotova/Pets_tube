@@ -96,9 +96,9 @@ export const subscribe = async (req, res, next) => {
     await User.findByIdAndUpdate(req.params.id, {
       $inc: { subscribers: 1 },
     });
-    res.status(200).json('Subscriptions successful');
+    res.status(200).json('Subscriptions successful', req.params.id);
   } catch (error) {
-    console.log(error)
+    console.log(error, req.params.id)
     next(error);
   }
 }
