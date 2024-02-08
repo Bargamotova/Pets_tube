@@ -139,7 +139,7 @@ const SignIn = () => {
     <Container>
       <Wrapper>
         <Title>Sign In</Title>
-        <SubTitle>to continue to BargoTube</SubTitle>
+        <SubTitle>to continue to PetsTube</SubTitle>
         <Input
           placeholder='username'
           onChange={(e) => setName(e.target.value)}

@@ -13,12 +13,14 @@ export const signup = async (req, res, next) => {
     // await newUser.save();
     const savedUser = await newUser.save();
     const token = jwt.sign({ id: savedUser._id }, process.env.JWT);
+    const tokenActive = token;
+    const { password, ...others } = newUser._doc;
     res
       .cookie("access_token", token, {
         httpOnly: true,
       })
       .status(200)
-      .json(savedUser._doc, token);
+      .json({ ...others, tokenActive });
   } catch (err) {
     next(err);
   }
@@ -33,13 +35,14 @@ export const signIn = async (req, res, next) => {
     if (!isCorrect) next(createError(400, 'Wrong credentials!'));
 
     const token = jwt.sign({ id: user._id }, process.env.JWT);
+    const tokenActive = token;
     const { password, ...others } = user._doc;
     res
       .cookie("access_token", token, {
         httpOnly: true
       })
       .status(200)
-      .json(others, token);
+      .json({ ...others, tokenActive });
   } catch (err) {
     next(err);
   }
@@ -64,12 +67,13 @@ export const googleAuth = async (req, res, next) => {
 
       const savedUser = await newUser.save();
       const token = jwt.sign({ id: savedUser._id }, process.env.JWT);
+      const tokenActive = token;
       res
         .cookie("access_token", token, {
           httpOnly: true,
         })
         .status(200)
-        .json(savedUser._doc), token;
+        .json({ ...savedUser._doc, tokenActive });
     }
   } catch (err) {
     next(err);
