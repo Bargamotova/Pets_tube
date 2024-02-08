@@ -112,6 +112,7 @@ const Navbar = ({ screenSize }) => {
     e.preventDefault();
     dispatch(logOut());
     persistor.purge();
+    window.localStorage.clear("token");
     navigate("/");
   };
   const handleSearch = () => {
