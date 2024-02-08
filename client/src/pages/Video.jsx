@@ -219,7 +219,7 @@ const Video = () => {
       ? await axios.put(
           process.env.REACT_APP_BASE_URL + `/api/v1/users/unsub/${channel._id}`
         )
-      : await AxiosJWT.put(
+      : await axios.put(
           process.env.REACT_APP_BASE_URL + `/api/v1/users/sub/${channel._id}`
         );
     dispatch(subscription(channel._id));

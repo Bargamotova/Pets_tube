@@ -12,7 +12,7 @@ router.delete('/:id', verifyAccessToken, deleteUser)
 // get a user 
 router.get('/find/:id', getUser)
 // subscribe a user 
-router.put('/sub/:id', verifyAccessToken, subscribe)
+router.put('/sub/:id', subscribe)
 // unsubscribe a user 
 router.put('/unsub/:id', unsubscribe)
 // like a video 
