@@ -3,6 +3,7 @@ import axios from "axios";
 import TimeAgo from "react-timeago";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import AxiosJWT from "../axios";
 
 import styled from "styled-components";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -218,7 +219,7 @@ const Video = () => {
       ? await axios.put(
           process.env.REACT_APP_BASE_URL + `/api/v1/users/unsub/${channel._id}`
         )
-      : await axios.put(
+      : await AxiosJWT.put(
           process.env.REACT_APP_BASE_URL + `/api/v1/users/sub/${channel._id}`
         );
     dispatch(subscription(channel._id));
