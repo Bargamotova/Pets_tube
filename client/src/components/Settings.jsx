@@ -97,11 +97,12 @@ const Settings = ({ setOpenSet, openSet }) => {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const FP = process.env.REACT_APP_IMG_URL;
-  
+
   const handleLogOut = (e) => {
     e.preventDefault();
     dispatch(logOut());
     persistor.purge();
+    window.localStorage.clear("token");
     setOpenSet(false);
     navigate("/");
   };
