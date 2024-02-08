@@ -18,7 +18,7 @@ export const signup = async (req, res, next) => {
         httpOnly: true,
       })
       .status(200)
-      .json(savedUser._doc);
+      .json(savedUser._doc, token);
   } catch (err) {
     next(err);
   }
@@ -39,7 +39,7 @@ export const signIn = async (req, res, next) => {
         httpOnly: true
       })
       .status(200)
-      .json(others);
+      .json(others, token);
   } catch (err) {
     next(err);
   }
@@ -50,7 +50,6 @@ export const googleAuth = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT);
-
       res
         .cookie("access_token", token, {
           httpOnly: true,
@@ -70,7 +69,7 @@ export const googleAuth = async (req, res, next) => {
           httpOnly: true,
         })
         .status(200)
-        .json(savedUser._doc);
+        .json(savedUser._doc), token;
     }
   } catch (err) {
     next(err);
