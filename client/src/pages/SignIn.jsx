@@ -1,12 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import styled from "styled-components";
 import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
-
+import axios from "../axios";
 const Container = styled.div`
   color: ${({ theme }) => theme.text};
   display: flex;
@@ -72,6 +72,7 @@ const Link = styled.span`
   margin-left: 50px;
   font-size: 0.875rem;
 `;
+
 const SignIn = () => {
   const navigate = useNavigate();
 
@@ -92,6 +93,10 @@ const SignIn = () => {
         }
       );
       dispatch(loginSuccess(res.data));
+      window.localStorage.setItem(
+        "token",
+        JSON.stringify(res.data.tokenActive)
+      );
       navigate("/");
     } catch (error) {
       dispatch(loginFailure());
@@ -109,6 +114,10 @@ const SignIn = () => {
           })
           .then((res) => {
             dispatch(loginSuccess(res.data));
+            window.localStorage.setItem(
+              "token",
+              JSON.stringify(res.data.tokenActive)
+            );
             navigate("/");
           });
       })
@@ -129,6 +138,10 @@ const SignIn = () => {
         }
       );
       dispatch(loginSuccess(res.data));
+      window.localStorage.setItem(
+        "token",
+        JSON.stringify(res.data.tokenActive)
+      );
       navigate("/");
     } catch (error) {
       dispatch(loginFailure());
