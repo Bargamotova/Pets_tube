@@ -11,9 +11,10 @@ export const verifyToken = (req, res, next) => {
     req.user = user;
     next();
   })
-}
+};
+
 export const verifyAccessToken = (req, res, next) => {
-  const token = (req.headers.authorization || '').replace(/Bearer\s?/, '');
+  const token = (req.headers.Authorization || '').replace(/Bearer\s?/, '');
   if (!token) next(createError(401, "You are not authenticated!!!"));
 
   if (token) {
@@ -26,4 +27,4 @@ export const verifyAccessToken = (req, res, next) => {
       return res.status(403).json({ message: "You don't have access!!!" })
     }
   }
-}
+};
